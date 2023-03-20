@@ -14,7 +14,7 @@ async fn main() -> std::io::Result<()> {
 
     let configuration = get_configuration().expect("Configuration read succeed.");
     let connection_pool =
-        PgPool::connect_lazy(&configuration.database.connection_string().expose_secret())
+        PgPool::connect_lazy(configuration.database.connection_string().expose_secret())
             .expect("Connect Postgres succeed.");
     let address = format!(
         "{}:{}",
