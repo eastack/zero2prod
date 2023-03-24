@@ -36,7 +36,6 @@ repos:
         description: Lint your dependencies
         entry: cargo deny check
         language: system
-        args: ["--disable-fetch"]
         types: [rust]
         pass_filenames: false
       - id: cargo-clippy
