@@ -1,11 +1,5 @@
 fail_fast: true
 repos:
-  - repo: https://github.com/doublify/pre-commit-rust.git
-    rev: v1.0
-    hooks:
-      - id: fmt
-      - id: cargo-check
-      - id: clippy
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
@@ -27,8 +21,9 @@ repos:
         description: Format files with rustfmt.
         entry: cargo fmt
         language: system
+        args: ["--", "--check"]
         types: [rust]
-        args: ["--"]
+        pass_filenames: false
       - id: cargo-check
         name: cargo check
         description: Check the package for errors.
@@ -39,8 +34,9 @@ repos:
       - id: cargo-deny
         name: cargo deny check
         description: Lint your dependencies
-        entry: cargo deny check -d
+        entry: cargo deny check
         language: system
+        args: ["--disable-fetch"]
         types: [rust]
         pass_filenames: false
       - id: cargo-clippy
@@ -48,6 +44,6 @@ repos:
         description: Lint your rust sources
         entry: cargo clippy
         language: system
-        args: ["--", "-D", "warnings"]
+        args: ["--", "--deny", "warnings"]
         types: [rust]
         pass_filenames: false
