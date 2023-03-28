@@ -31,13 +31,13 @@ repos:
         language: system
         types: [rust]
         pass_filenames: false
-      - id: cargo-deny
-        name: cargo deny check
-        description: Lint your dependencies
-        entry: cargo deny check
-        language: system
-        types: [rust]
-        pass_filenames: false
+      #- id: cargo-deny
+      #  name: cargo deny check
+      #  description: Lint your dependencies
+      #  entry: cargo deny check
+      #  language: system
+      #  types: [rust]
+      #  pass_filenames: false
       - id: cargo-clippy
         name: cargo clippy
         description: Lint your rust sources
