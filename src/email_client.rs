@@ -1,6 +1,7 @@
+use std::time::Duration;
+
 use reqwest::{Client, Url};
 use secrecy::{ExposeSecret, Secret};
-use std::time::Duration;
 
 use crate::domain::SubscriberEmail;
 
@@ -73,19 +74,19 @@ struct SendEmailRequest<'a> {
 
 #[cfg(test)]
 mod tests {
+    use std::time::Duration;
+
     use claims::{assert_err, assert_ok};
     use fake::faker::internet::en::Password;
     use fake::faker::lorem::en::Sentence;
     use fake::{faker::internet::en::SafeEmail, Fake};
     use secrecy::Secret;
-    use std::time::Duration;
+    use wiremock::matchers::{any, header, header_exists, method, path};
+    use wiremock::Request;
+    use wiremock::{Mock, MockServer, ResponseTemplate};
 
     use crate::domain::SubscriberEmail;
     use crate::email_client::EmailClient;
-    use wiremock::matchers::{any, header, header_exists, method, path};
-    use wiremock::{Mock, MockServer, ResponseTemplate};
-
-    use wiremock::Request;
 
     struct SendEmailBodyMatcher;
 

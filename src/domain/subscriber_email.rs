@@ -1,4 +1,5 @@
 use std::fmt::{Display, Formatter};
+
 use validator::validate_email;
 
 #[derive(Debug)]
@@ -28,8 +29,15 @@ impl AsRef<str> for SubscriberEmail {
 
 #[cfg(test)]
 mod tests {
-    use super::SubscriberEmail;
     use claims::assert_err;
+    use fake::Fake;
+    // We are importing the `SafeEmail` faker!
+    // We also need the `Fake` trait to get access to the
+    // `.fake` method on `SafeEmail`
+    use fake::faker::internet::en::SafeEmail;
+    use quickcheck::Gen;
+
+    use super::SubscriberEmail;
 
     #[test]
     fn empty_string_is_rejected() {
@@ -54,13 +62,6 @@ mod tests {
         let email = "@domain.com".to_string();
         assert_err!(SubscriberEmail::parse(email));
     }
-
-    // We are importing the `SafeEmail` faker!
-    // We also need the `Fake` trait to get access to the
-    // `.fake` method on `SafeEmail`
-    use fake::faker::internet::en::SafeEmail;
-    use fake::Fake;
-    use quickcheck::Gen;
 
     #[derive(Debug, Clone)]
     struct ValidEmailFixture(pub String);

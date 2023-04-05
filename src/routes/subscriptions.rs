@@ -1,6 +1,6 @@
-use crate::domain::NewSubscriber;
-use crate::email_client::EmailClient;
-use crate::startup::ApplicationBaseUrl;
+use std::error::Error;
+use std::fmt::{Debug, Display, Formatter};
+
 use actix_web::http::StatusCode;
 use actix_web::web::{Data, Form};
 use actix_web::{HttpResponse, ResponseError};
@@ -9,9 +9,11 @@ use chrono::Utc;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use sqlx::{PgPool, Postgres, Transaction};
-use std::error::Error;
-use std::fmt::{Debug, Display, Formatter};
 use uuid::Uuid;
+
+use crate::domain::NewSubscriber;
+use crate::email_client::EmailClient;
+use crate::startup::ApplicationBaseUrl;
 
 #[derive(serde::Deserialize)]
 pub struct FormData {
